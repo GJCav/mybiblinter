@@ -1,0 +1,33 @@
+[project]
+authors = [{name = "jcav", email = "micojcav@outlook.com"}]
+name = "CSBibLinter"
+requires-python = ">= 3.11"
+version = "0.1.0"
+scripts = { checkbib = "csbiblinter.cli:main" }
+dependencies = ["bibtexparser==2.0.0b8", "pydantic>=2.11.4,<3"]
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[tool.pixi.project]
+channels = [
+	"https://mirrors.cernet.edu.cn/anaconda/cloud/conda-forge", # conda-forge
+#    "https://mirrors.cernet.edu.cn/anaconda/pkgs/main",        # conda
+]
+platforms = ["win-64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+csbiblinter = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.pypi-options]
+index-url = "https://mirrors.cernet.edu.cn/pypi/web/simple"     # pypi mirror
+
+[tool.pixi.environments]
+default = { solve-group="default" }
+dev = { features = ["dev"], solve-group="default" } 
+
+[tool.pixi.feature.dev.dependencies]
+ipykernel = ">=6.29.5,<7"
